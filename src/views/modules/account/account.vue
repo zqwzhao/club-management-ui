@@ -6,8 +6,9 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('generator:user:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('generator:user:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button v-if="isAuth('generator:account:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('generator:account:batchAdd')" type="primary" @click="addOrUpdateHandle()">批量新增</el-button>
+        <el-button v-if="isAuth('generator:account:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -23,22 +24,16 @@
         width="50">
       </el-table-column>
       <el-table-column
-        prop="userId"
+        prop="accountId"
         header-align="center"
         align="center"
         label="">
       </el-table-column>
       <el-table-column
-        prop="username"
+        prop="studentNumber"
         header-align="center"
         align="center"
-        label="用户名">
-      </el-table-column>
-      <el-table-column
-        prop="mobile"
-        header-align="center"
-        align="center"
-        label="手机号">
+        label="学号">
       </el-table-column>
       <el-table-column
         prop="password"
@@ -47,46 +42,64 @@
         label="密码">
       </el-table-column>
       <el-table-column
+        prop="nickname"
+        header-align="center"
+        align="center"
+        label="昵称">
+      </el-table-column>
+      <el-table-column
+        prop="mobile"
+        header-align="center"
+        align="center"
+        label="手机号">
+      </el-table-column>
+      <el-table-column
         prop="createTime"
         header-align="center"
         align="center"
         label="创建时间">
       </el-table-column>
       <el-table-column
-        prop="userGender"
+        prop="studentName"
+        header-align="center"
+        align="center"
+        label="学生姓名">
+      </el-table-column>
+      <el-table-column
+        prop="gender"
         header-align="center"
         align="center"
         label="性别">
       </el-table-column>
       <el-table-column
-        prop="userInstitute"
+        prop="institute"
         header-align="center"
         align="center"
         label="系别">
       </el-table-column>
       <el-table-column
-        prop="userClass"
+        prop="class"
         header-align="center"
         align="center"
         label="专业和班级">
       </el-table-column>
       <el-table-column
-        prop="userStudentNumber"
-        header-align="center"
-        align="center"
-        label="学号">
-      </el-table-column>
-      <el-table-column
-        prop="userOpenId"
+        prop="open id"
         header-align="center"
         align="center"
         label="微信openid">
       </el-table-column>
       <el-table-column
-        prop="userAvatar"
+        prop="avatar"
         header-align="center"
         align="center"
         label="微信验证消息">
+      </el-table-column>
+      <el-table-column
+        prop="picture"
+        header-align="center"
+        align="center"
+        label="头像">
       </el-table-column>
       <el-table-column
         fixed="right"
@@ -95,8 +108,8 @@
         width="150"
         label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.userId)">修改</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.userId)">删除</el-button>
+          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.accountId)">修改</el-button>
+          <el-button type="text" size="small" @click="deleteHandle(scope.row.accountId)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -115,7 +128,7 @@
 </template>
 
 <script>
-  import AddOrUpdate from './user-add-or-update'
+  import AddOrUpdate from './account-add-or-update'
   export default {
     data () {
       return {
@@ -142,7 +155,7 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/generator/user/list'),
+          url: this.$http.adornUrl('/generator/account/list'),
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,
@@ -185,7 +198,7 @@
       // 删除
       deleteHandle (id) {
         var ids = id ? [id] : this.dataListSelections.map(item => {
-          return item.userId
+          return item.accountId
         })
         this.$confirm(`确定对[id=${ids.join(',')}]进行[${id ? '删除' : '批量删除'}]操作?`, '提示', {
           confirmButtonText: '确定',
@@ -193,7 +206,7 @@
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/generator/user/delete'),
+            url: this.$http.adornUrl('/generator/account/delete'),
             method: 'post',
             data: this.$http.adornData(ids, false)
           }).then(({data}) => {
