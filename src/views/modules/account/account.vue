@@ -6,9 +6,9 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('generator:account:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('generator:account:batchAdd')" type="primary" @click="addOrUpdateHandle()">批量新增</el-button>
-        <el-button v-if="isAuth('generator:account:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button v-if="isAuth('app:account:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('app:account:batchAdd')" type="primary" >批量新增</el-button>
+        <el-button v-if="isAuth('app:account:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -27,7 +27,7 @@
         prop="accountId"
         header-align="center"
         align="center"
-        label="">
+        label="编号">
       </el-table-column>
       <el-table-column
         prop="studentNumber"
@@ -78,10 +78,10 @@
         label="系别">
       </el-table-column>
       <el-table-column
-        prop="class"
+        prop="major"
         header-align="center"
         align="center"
-        label="专业和班级">
+        label="专业">
       </el-table-column>
       <el-table-column
         prop="open id"
@@ -155,7 +155,7 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/generator/account/list'),
+          url: this.$http.adornUrl('/app/account/list'),
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,
@@ -206,7 +206,7 @@
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/generator/account/delete'),
+            url: this.$http.adornUrl('/app/account/delete'),
             method: 'post',
             data: this.$http.adornData(ids, false)
           }).then(({data}) => {

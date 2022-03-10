@@ -7,17 +7,34 @@
     <el-form-item label="活动名称" prop="activityName">
       <el-input v-model="dataForm.activityName" placeholder="活动名称"></el-input>
     </el-form-item>
+
+    
     <el-form-item label="活动开始时间" prop="activityStartTime">
-      <el-input v-model="dataForm.activityStartTime" placeholder="活动开始时间"></el-input>
+      <el-date-picker
+      v-model="dataForm.activityStartTime"
+      type="datetime"
+      placeholder="活动开始日期时间"
+      value-format="yyyy-MM-dd hh:mm:ss">
+    </el-date-picker>
     </el-form-item>
     <el-form-item label="活动结束时间" prop="activityEndTime">
-      <el-input v-model="dataForm.activityEndTime" placeholder="活动结束时间"></el-input>
+      <el-date-picker
+      v-model="dataForm.activityEndTime"
+      type="datetime"
+      placeholder="活动结束时间"
+      value-format="yyyy-MM-dd hh:mm:ss">
+    </el-date-picker>
     </el-form-item>
     <el-form-item label="活动描述" prop="activityDescribe">
-      <el-input v-model="dataForm.activityDescribe" placeholder="活动描述"></el-input>
+      <el-input
+      type="textarea"
+      :rows="3"
+      placeholder="请输入活动描述"
+      v-model="dataForm.activityDescribe">
+      </el-input>
     </el-form-item>
     <el-form-item label="活动奖励" prop="activityReward">
-      <el-input v-model="dataForm.activityReward" placeholder="活动奖励"></el-input>
+      <el-input type="textarea" :rows="2" v-model="dataForm.activityReward" placeholder="活动奖励"></el-input>
     </el-form-item>
     <el-form-item label="活动人数" prop="activityPeople">
       <el-input v-model="dataForm.activityPeople" placeholder="活动人数"></el-input>
@@ -30,9 +47,6 @@
     </el-form-item>
     <el-form-item label="活动创建者" prop="activityCreaterId">
       <el-input v-model="dataForm.activityCreaterId" placeholder="活动创建者编号"></el-input>
-    </el-form-item>
-    <el-form-item label="活动覆盖范围" prop="activityCover">
-      <el-input v-model="dataForm.activityCover" placeholder="活动覆盖范围"></el-input>
     </el-form-item>
     <el-form-item label="活动地点" prop="activityPosition">
       <el-input v-model="dataForm.activityPosition" placeholder="活动地点"></el-input>
@@ -61,7 +75,6 @@
           clubId: '',
           activityStatus: '',
           activityCreaterId: '',
-          activityCover: '',
           activityPosition: ''
         },
         dataRule: {
@@ -92,9 +105,6 @@
           activityCreaterId: [
             { required: true, message: '活动创建者id不能为空', trigger: 'blur' }
           ],
-          activityCover: [
-            { required: true, message: '活动覆盖范围不能为空', trigger: 'blur' }
-          ],
           activityPosition: [
             { required: true, message: '活动地点不能为空', trigger: 'blur' }
           ]
@@ -109,7 +119,7 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.activityId) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/activity/info/${this.dataForm.activityId}`),
+              url: this.$http.adornUrl(`/api/activity/info/${this.dataForm.activityId}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {
@@ -135,7 +145,7 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/activity/${!this.dataForm.activityId ? 'save' : 'update'}`),
+              url: this.$http.adornUrl(`/api/activity/${!this.dataForm.activityId ? 'save' : 'update'}`),
               method: 'post',
               data: this.$http.adornData({
                 'activityId': this.dataForm.activityId || undefined,

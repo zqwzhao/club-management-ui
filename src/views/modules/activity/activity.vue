@@ -9,8 +9,8 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('generator:activity:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('generator:activity:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button v-if="isAuth('api:activity:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('api:activity:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -86,12 +86,6 @@
         label="活动创建者">
       </el-table-column>
       <el-table-column
-        prop="activityCover"
-        header-align="center"
-        align="center"
-        label="活动覆盖范围">
-      </el-table-column>
-      <el-table-column
         prop="activityPosition"
         header-align="center"
         align="center"
@@ -151,7 +145,7 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/generator/activity/list'),
+          url: this.$http.adornUrl('/api/activity/list'),
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,

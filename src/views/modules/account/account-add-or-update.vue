@@ -102,7 +102,7 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.accountId) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/account/info/${this.dataForm.accountId}`),
+              url: this.$http.adornUrl(`/app/account/info/${this.dataForm.accountId}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {
@@ -129,7 +129,7 @@
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/account/${!this.dataForm.accountId ? 'save' : 'update'}`),
+              url: this.$http.adornUrl(`/app/account/${!this.dataForm.accountId ? 'save' : 'update'}`),
               method: 'post',
               data: this.$http.adornData({
                 'accountId': this.dataForm.accountId || undefined,
