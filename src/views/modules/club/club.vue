@@ -9,9 +9,9 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('generator:club:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('generator:club:batchAdd')" type="primary" @click="uploadHandle()">批量新增</el-button>
-        <el-button v-if="isAuth('generator:club:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
+        <el-button v-if="isAuth('api:club:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button v-if="isAuth('api:club:batchAdd')" type="primary" @click="uploadHandle()">批量新增</el-button>
+        <el-button v-if="isAuth('api:club:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -50,18 +50,12 @@
         align="center"
         label="社团描述">
       </el-table-column>
-      <el-table-column
-        prop="clubLogo"
-        header-align="center"
-        align="center"
-        label="社团图标">
-      </el-table-column>
-      <el-table-column
-        prop="clubEstablishTime"
-        header-align="center"
-        align="center"
-        label="社团建立时间">
-      </el-table-column>
+      <el-table-column prop="clubLogo" label="社团logo" min-width="45%" >
+                 <!-- 图片的显示 -->
+                 <template   slot-scope="scope">            
+                    <img :src="scope.row.clubLogo"  min-width="100" height="100" />
+                 </template>         
+      </el-table-column> 
       <el-table-column
         prop="clubInstitute"
         header-align="center"
@@ -117,6 +111,7 @@
         dataForm: {
           key: ''
         },
+        fits: ['fill', 'contain', 'cover', 'none', 'scale-down'],
         dataList: [],
         pageIndex: 1,
         pageSize: 10,
@@ -139,7 +134,7 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/generator/club/list'),
+          url: this.$http.adornUrl('/api/club/list'),
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,
@@ -197,7 +192,7 @@
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/generator/club/delete'),
+            url: this.$http.adornUrl('/api/club/delete'),
             method: 'post',
             data: this.$http.adornData(ids, false)
           }).then(({data}) => {

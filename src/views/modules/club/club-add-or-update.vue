@@ -14,11 +14,10 @@
       <el-input v-model="dataForm.clubDescribe" placeholder="社团描述"></el-input>
     </el-form-item>
     <el-form-item label="社团Logo" prop="clubLogo">
-      <el-input v-model="dataForm.clubLogo" placeholder="社团Logo"></el-input>
+      <el-input v-model="dataForm.clubLogo" placeholder="社团描述"></el-input>
     </el-form-item>
-    <el-form-item label="社团建立时间" prop="clubEstablishTime">
-      <el-date-picker v-model="dataForm.clubEstablishTime" type="date"  placeholder="社团建立时间"  format="yyyy-MM-dd">
-      </el-date-picker>
+    <el-form-item label="社团人数" prop="clubPeople">
+      <el-input v-model="dataForm.clubPeople" placeholder="社团描述"></el-input>
     </el-form-item>
     <el-form-item label="社团机构" prop="clubInstitute">
       <el-select v-model="value" placeholder="请选择">
@@ -29,7 +28,6 @@
           :value="item.value">
         </el-option>
       </el-select>
-      <el-input v-model="dataForm.clubInstitute" placeholder="社团机构"></el-input>
     </el-form-item>
     <el-form-item label="社团创建者" prop="clubCreaterId">
       <el-input v-model="dataForm.clubCreaterId" placeholder="社团创建者"></el-input>
@@ -46,17 +44,20 @@
 </template>
 
 <script>
+  import { specialCharacterReg } from '@/utils/regRules'
   export default {
     data () {
       return {
         visible: false,
+        specialCharacterReg,
+        nameSpecialCharacterReg: new RegExp(/^[^`\t+\n+\s+~!#$%^&*()+=<>?:"{}|,./;'\\[\]·~！#￥%……&*（）——+={}|《》？：“”【】、；‘'，。、]*$/ig),
         dataForm: {
           clubId: 0,
           clubName: '',
           clubType: '',
           clubDescribe: '',
           clubLogo: '',
-          clubEstablishTime: '',
+          clubPeople: '',
           clubInstitute: '',
           clubCreaterId: '',
           clubQq: ''
@@ -74,8 +75,8 @@
           clubLogo: [
             { required: true, message: '社团logo不能为空', trigger: 'blur' }
           ],
-          clubEstablishTime: [
-            { required: true, message: '社团建立时间不能为空', trigger: 'blur' }
+          clubPeople: [
+            { required: true, message: '社团人数', trigger: 'blur' }
           ],
           clubInstitute: [
             { required: true, message: '社团机构不能为空', trigger: 'blur' }
@@ -87,16 +88,9 @@
             { required: true, message: '社团qq群号不能为空', trigger: 'blur' }
           ]
         },
-        options: [{
-          value: '选项1',
-          label: '计算机与信息系'
-        }, {
-          value: '选项2',
-          label: '人文系'
-        }, {
-          value: '选项3',
-          label: '教育系'
-        }]
+        imageUrl: '',
+        tempUrl: '',
+        options: []
       }
     },
     methods: {
@@ -116,7 +110,7 @@
                 this.dataForm.clubType = data.club.clubType
                 this.dataForm.clubDescribe = data.club.clubDescribe
                 this.dataForm.clubLogo = data.club.clubLogo
-                this.dataForm.clubEstablishTime = data.club.clubEstablishTime
+                this.dataForm.clubPeople = data.club.clubPeople
                 this.dataForm.clubInstitute = data.club.clubInstitute
                 this.dataForm.clubCreaterId = data.club.clubCreaterId
                 this.dataForm.clubQq = data.club.clubQq
@@ -138,7 +132,6 @@
                 'clubType': this.dataForm.clubType,
                 'clubDescribe': this.dataForm.clubDescribe,
                 'clubLogo': this.dataForm.clubLogo,
-                'clubEstablishTime': this.dataForm.clubEstablishTime,
                 'clubInstitute': this.dataForm.clubInstitute,
                 'clubCreaterId': this.dataForm.clubCreaterId,
                 'clubQq': this.dataForm.clubQq
