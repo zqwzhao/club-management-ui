@@ -26,25 +26,19 @@
         prop="id"
         header-align="center"
         align="center"
-        label="">
+        label="图片编号">
       </el-table-column>
       <el-table-column
         prop="imageName"
         header-align="center"
         align="center"
-        label="">
+        label="图片名称">
       </el-table-column>
       <el-table-column
         prop="imageUrl"
         header-align="center"
         align="center"
-        label="">
-      </el-table-column>
-      <el-table-column
-        prop="imageIndex"
-        header-align="center"
-        align="center"
-        label="">
+        label="图片地址">
       </el-table-column>
       <el-table-column
         fixed="right"

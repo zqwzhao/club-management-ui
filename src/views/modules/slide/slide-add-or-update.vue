@@ -10,9 +10,6 @@
     <el-form-item label="" prop="imageUrl">
       <el-input v-model="dataForm.imageUrl" placeholder=""></el-input>
     </el-form-item>
-    <el-form-item label="" prop="imageIndex">
-      <el-input v-model="dataForm.imageIndex" placeholder=""></el-input>
-    </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
       <el-button @click="visible = false">取消</el-button>
@@ -38,9 +35,6 @@
           ],
           imageUrl: [
             { required: true, message: '不能为空', trigger: 'blur' }
-          ],
-          imageIndex: [
-            { required: true, message: '不能为空', trigger: 'blur' }
           ]
         }
       }
@@ -60,7 +54,6 @@
               if (data && data.code === 0) {
                 this.dataForm.imageName = data.slide.imageName
                 this.dataForm.imageUrl = data.slide.imageUrl
-                this.dataForm.imageIndex = data.slide.imageIndex
               }
             })
           }
@@ -76,8 +69,7 @@
               data: this.$http.adornData({
                 'id': this.dataForm.id || undefined,
                 'imageName': this.dataForm.imageName,
-                'imageUrl': this.dataForm.imageUrl,
-                'imageIndex': this.dataForm.imageIndex
+                'imageUrl': this.dataForm.imageUrl
               })
             }).then(({data}) => {
               if (data && data.code === 0) {
