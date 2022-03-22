@@ -4,10 +4,10 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-    <el-form-item label="" prop="imageName">
+    <el-form-item label="图片名称" prop="imageName">
       <el-input v-model="dataForm.imageName" placeholder=""></el-input>
     </el-form-item>
-    <el-form-item label="" prop="imageUrl">
+    <el-form-item label="图片地址" prop="imageUrl">
       <el-input v-model="dataForm.imageUrl" placeholder=""></el-input>
     </el-form-item>
     </el-form>

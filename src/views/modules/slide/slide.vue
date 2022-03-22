@@ -40,6 +40,12 @@
         align="center"
         label="图片地址">
       </el-table-column>
+      <el-table-column prop="imageUrl" label="图片预览" min-width="60%" >
+                 <!-- 图片的显示 -->
+                 <template   slot-scope="scope">            
+                    <img :src="scope.row.imageUrl"  min-width="100" height="100" />
+                 </template>         
+      </el-table-column> 
       <el-table-column
         fixed="right"
         header-align="center"
