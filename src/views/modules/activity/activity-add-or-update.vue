@@ -45,7 +45,7 @@
     <el-form-item label="活动状态" prop="activityStatus">
       <el-input v-model="dataForm.activityStatus" placeholder="活动状态"></el-input>
     </el-form-item>
-    <el-form-item label="活动创建者" prop="activityCreaterId">
+    <el-form-item label="活动创建者" prop="activityCreateClubId">
       <el-input v-model="dataForm.activityCreaterId" placeholder="活动创建者编号"></el-input>
     </el-form-item>
     <el-form-item label="活动地点" prop="activityPosition">
@@ -72,9 +72,8 @@
           activityDescribe: '',
           activityReward: '',
           activityPeople: '',
-          clubId: '',
           activityStatus: '',
-          activityCreaterId: '',
+          activityCreateClubId: '',
           activityPosition: ''
         },
         dataRule: {
@@ -96,14 +95,11 @@
           activityPeople: [
             { required: true, message: '活动人数不能为空', trigger: 'blur' }
           ],
-          clubId: [
-            { required: true, message: '社团id不能为空', trigger: 'blur' }
-          ],
           activityStatus: [
             { required: true, message: '活动状态不能为空', trigger: 'blur' }
           ],
-          activityCreaterId: [
-            { required: true, message: '活动创建者id不能为空', trigger: 'blur' }
+          activityCreateClubId: [
+            { required: true, message: '活动创建者社团不能为空', trigger: 'blur' }
           ],
           activityPosition: [
             { required: true, message: '活动地点不能为空', trigger: 'blur' }
@@ -130,9 +126,8 @@
                 this.dataForm.activityDescribe = data.activity.activityDescribe
                 this.dataForm.activityReward = data.activity.activityReward
                 this.dataForm.activityPeople = data.activity.activityPeople
-                this.dataForm.clubId = data.activity.clubId
                 this.dataForm.activityStatus = data.activity.activityStatus
-                this.dataForm.activityCreaterId = data.activity.activityCreaterId
+                this.dataForm.activityCreateClubId = data.activity.activityCreateClubId
                 this.dataForm.activityCover = data.activity.activityCover
                 this.dataForm.activityPosition = data.activity.activityPosition
               }
@@ -155,9 +150,8 @@
                 'activityDescribe': this.dataForm.activityDescribe,
                 'activityReward': this.dataForm.activityReward,
                 'activityPeople': this.dataForm.activityPeople,
-                'clubId': this.dataForm.clubId,
                 'activityStatus': this.dataForm.activityStatus,
-                'activityCreaterId': this.dataForm.activityCreaterId,
+                'activityCreateClubId': this.dataForm.activityCreateClubId,
                 'activityCover': this.dataForm.activityCover,
                 'activityPosition': this.dataForm.activityPosition
               })

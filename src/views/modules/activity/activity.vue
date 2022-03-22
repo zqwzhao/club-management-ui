@@ -68,19 +68,13 @@
         label="活动人数">
       </el-table-column>
       <el-table-column
-        prop="clubId"
-        header-align="center"
-        align="center"
-        label="社团id">
-      </el-table-column>
-      <el-table-column
         prop="activityStatus"
         header-align="center"
         align="center"
         label="活动状态">
       </el-table-column>
       <el-table-column
-        prop="activityCreaterId"
+        prop="activityCreateClubId"
         header-align="center"
         align="center"
         label="活动创建者">
@@ -196,7 +190,7 @@
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/generator/activity/delete'),
+            url: this.$http.adornUrl('/api/activity/delete'),
             method: 'post',
             data: this.$http.adornData(ids, false)
           }).then(({data}) => {
