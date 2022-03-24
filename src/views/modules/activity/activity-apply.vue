@@ -32,19 +32,43 @@
         prop="accountId"
         header-align="center"
         align="center"
-        label="学号">
+        label="账户编号">
       </el-table-column>
       <el-table-column
         prop="activityId"
         header-align="center"
         align="center"
-        label="活动id">
+        label="活动编号">
       </el-table-column>
       <el-table-column
         prop="status"
         header-align="center"
         align="center"
         label="状态">
+      </el-table-column>
+      <el-table-column
+        prop="studentNumber"
+        header-align="center"
+        align="center"
+        label="学号" >
+      </el-table-column>
+      <el-table-column
+        prop="studentName"
+        header-align="center"
+        align="center"
+        label="姓名">
+      </el-table-column>
+      <el-table-column
+        prop="activityName"
+        header-align="center"
+        align="center"
+        label="活动名称">
+      </el-table-column>
+      <el-table-column
+        prop="activityPosition"
+        header-align="center"
+        align="center"
+        label="活动地点">
       </el-table-column>
       <el-table-column
         fixed="right"
@@ -54,7 +78,7 @@
         label="操作">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">通过</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">拒绝</el-button>
+          <el-button type="text" size="small" @click="refuse(scope.row.id)">不通过</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -151,7 +175,7 @@
           type: 'warning'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/generator/activityapply/delete'),
+            url: this.$http.adornUrl('/api/activityapply/delete'),
             method: 'post',
             data: this.$http.adornData(ids, false)
           }).then(({data}) => {

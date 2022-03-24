@@ -26,25 +26,43 @@
         prop="id"
         header-align="center"
         align="center"
-        label="社团申请编码">
+        label="社团申请编号">
       </el-table-column>
       <el-table-column
         prop="accountId"
         header-align="center"
         align="center"
-        label="学号">
+        label="账户编号">
       </el-table-column>
       <el-table-column
         prop="clubId"
         header-align="center"
         align="center"
-        label="社团名称">
+        label="社团编号">
       </el-table-column>
       <el-table-column
         prop="status"
         header-align="center"
         align="center"
         label="状态">
+      </el-table-column>
+      <el-table-column
+        prop="studentNumber"
+        header-align="center"
+        align="center"
+        label="学号">
+      </el-table-column>
+      <el-table-column
+        prop="studentName"
+        header-align="center"
+        align="center"
+        label="姓名">
+      </el-table-column>
+      <el-table-column
+        prop="clubName"
+        header-align="center"
+        align="center"
+        label="社团名称">
       </el-table-column>
       <el-table-column
         fixed="right"
@@ -100,7 +118,7 @@
       getDataList () {
         this.dataListLoading = true
         this.$http({
-          url: this.$http.adornUrl('/generator/clubapply/list'),
+          url: this.$http.adornUrl('/api/clubapply/list'),
           method: 'get',
           params: this.$http.adornParams({
             'page': this.pageIndex,

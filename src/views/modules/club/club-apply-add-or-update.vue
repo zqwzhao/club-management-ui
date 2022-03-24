@@ -4,14 +4,23 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="80px">
-    <el-form-item label="学号" prop="accountId">
-      <el-input v-model="dataForm.accountId" placeholder="学号"></el-input>
+    <el-form-item label="账户编号" prop="accountId">
+      <el-input v-model="dataForm.accountId" placeholder="账户编号"></el-input>
     </el-form-item>
-    <el-form-item label="社团id" prop="clubId">
-      <el-input v-model="dataForm.clubId" placeholder="社团id"></el-input>
+    <el-form-item label="社团编号" prop="clubId">
+      <el-input v-model="dataForm.clubId" placeholder="社团编号"></el-input>
     </el-form-item>
-    <el-form-item label="状态" prop="status">
-      <el-input v-model="dataForm.status" placeholder="状态"></el-input>
+    <el-form-item label="0 审批中 1 通过 2 不通过" prop="status">
+      <el-input v-model="dataForm.status" placeholder="0 审批中 1 通过 2 不通过"></el-input>
+    </el-form-item>
+    <el-form-item label="学号" prop="studentNumber">
+      <el-input v-model="dataForm.studentNumber" placeholder="学号"></el-input>
+    </el-form-item>
+    <el-form-item label="姓名" prop="studentName">
+      <el-input v-model="dataForm.studentName" placeholder="姓名"></el-input>
+    </el-form-item>
+    <el-form-item label="社团名称" prop="clubName">
+      <el-input v-model="dataForm.clubName" placeholder="社团名称"></el-input>
     </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -30,17 +39,29 @@
           id: 0,
           accountId: '',
           clubId: '',
-          status: ''
+          status: '',
+          studentNumber: '',
+          studentName: '',
+          clubName: ''
         },
         dataRule: {
           accountId: [
-            { required: true, message: '学号不能为空', trigger: 'blur' }
+            { required: true, message: '账户编号不能为空', trigger: 'blur' }
           ],
           clubId: [
-            { required: true, message: '社团id不能为空', trigger: 'blur' }
+            { required: true, message: '社团编号不能为空', trigger: 'blur' }
           ],
           status: [
-            { required: true, message: '活动状态', trigger: 'blur' }
+            { required: true, message: '状态不能为空', trigger: 'blur' }
+          ],
+          studentNumber: [
+            { required: true, message: '学号不能为空', trigger: 'blur' }
+          ],
+          studentName: [
+            { required: true, message: '姓名不能为空', trigger: 'blur' }
+          ],
+          clubName: [
+            { required: true, message: '社团名称不能为空', trigger: 'blur' }
           ]
         }
       }
@@ -53,7 +74,7 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/api/clubapply/info/${this.dataForm.id}`),
+              url: this.$http.adornUrl(`/apiclubapply/info/${this.dataForm.id}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {
@@ -61,6 +82,9 @@
                 this.dataForm.accountId = data.clubApply.accountId
                 this.dataForm.clubId = data.clubApply.clubId
                 this.dataForm.status = data.clubApply.status
+                this.dataForm.studentNumber = data.clubApply.studentNumber
+                this.dataForm.studentName = data.clubApply.studentName
+                this.dataForm.clubName = data.clubApply.clubName
               }
             })
           }
@@ -77,7 +101,10 @@
                 'id': this.dataForm.id || undefined,
                 'accountId': this.dataForm.accountId,
                 'clubId': this.dataForm.clubId,
-                'status': this.dataForm.status
+                'status': this.dataForm.status,
+                'studentNumber': this.dataForm.studentNumber,
+                'studentName': this.dataForm.studentName,
+                'clubName': this.dataForm.clubName
               })
             }).then(({data}) => {
               if (data && data.code === 0) {
