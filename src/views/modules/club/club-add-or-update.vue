@@ -61,7 +61,8 @@
         },
         dataRule: {
           clubName: [
-            { required: true, message: '社团名称不能为空', trigger: 'blur' }
+            { required: true, message: '社团名称不能为空', trigger: 'blur' },
+            { pattern: this.nameSpecialCharacterReg, message: "请输入正确的手机号码", trigger: ["blur", "change"] }
           ],
           clubType: [
             { required: true, message: '社团类型不能为空', trigger: 'blur' }
