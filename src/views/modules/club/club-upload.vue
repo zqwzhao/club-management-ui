@@ -36,8 +36,8 @@
       },
       // 上传之前
       beforeUploadHandle (file) {
-        if (file.type !== 'docx' && file.type !== 'xml' && file.type !== 'image/png' && file.type !== 'json') {
-          this.$message.error('只支持docx, xml, json格式的文件！')
+        if (file.type !== 'docx' && file.type !== 'xml' && file.type !== 'json') {
+          this.$message.error('只支持docx,json格式的文件！')
           return false
         }
         this.num++

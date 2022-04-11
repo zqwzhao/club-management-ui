@@ -55,12 +55,12 @@
         align="center"
         label="活动描述">
       </el-table-column>
-      <el-table-column
-        prop="activityReward"
-        header-align="center"
-        align="center"
-        label="活动奖励">
-      </el-table-column>
+      <el-table-column prop="activityImage" label="活动图片" min-width="45%" >
+                 <!-- 图片的显示 -->
+                 <template   slot-scope="scope">            
+                    <img :src="scope.row.activityImage"  min-width="100" height="100" />
+                 </template>         
+      </el-table-column> 
       <el-table-column
         prop="activityPeople"
         header-align="center"
@@ -72,12 +72,11 @@
         header-align="center"
         align="center"
         label="活动状态">
-      </el-table-column>
-      <el-table-column
-        prop="activityCreateClubId"
-        header-align="center"
-        align="center"
-        label="活动创建者">
+        <template slot-scope="scope">
+          <span v-if="scope.row.activityStatus == 0"><el-tag type="info">已结束</el-tag></span> 
+          <span v-else-if="scope.row.activityStatus == 1"><el-tag type="success">已开始</el-tag></span>
+          <span v-else-if="scope.row.activityStatus == 2"><el-tag type="danger">未开始</el-tag></span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="activityPosition"
@@ -92,8 +91,8 @@
         width="150"
         label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.activityId)">修改</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.activityId)">删除</el-button>
+          <el-button type="success" size="small" @click="addOrUpdateHandle(scope.row.activityId)">修改</el-button>
+          <el-button type="info" size="small" @click="deleteHandle(scope.row.activityId)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

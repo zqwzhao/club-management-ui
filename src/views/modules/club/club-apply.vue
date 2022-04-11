@@ -28,23 +28,16 @@
         align="center"
         label="社团申请编号">
       </el-table-column>
-      <el-table-column
-        prop="accountId"
-        header-align="center"
-        align="center"
-        label="账户编号">
-      </el-table-column>
-      <el-table-column
-        prop="clubId"
-        header-align="center"
-        align="center"
-        label="社团编号">
-      </el-table-column>
-      <el-table-column
-        prop="status"
+      <el-table-column 
+        prop="status" 
         header-align="center"
         align="center"
         label="状态">
+        <template slot-scope="scope">
+          <span v-if="scope.row.status == 0"><el-tag type="info">待审核</el-tag></span> 
+          <span v-else-if="scope.row.status == 1"><el-tag type="success">已同意</el-tag></span>
+          <span v-else-if="scope.row.status == 2"><el-tag type="danger">未同意</el-tag></span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="studentNumber"
@@ -68,11 +61,12 @@
         fixed="right"
         header-align="center"
         align="center"
-        width="150"
+        width="180"
         label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">删除</el-button>
+          <el-button type="success" size="small" @click="auditHandle(scope.row.id, 1)">同意</el-button>
+          <!-- <el-button type="text" size="small" @click="refuseApply(scope.row.id)">拒绝</el-button> -->
+          <el-button type="info" size="small" @click="auditHandle(scope.row.id, 2)">不同意</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -151,11 +145,35 @@
       selectionChangeHandle (val) {
         this.dataListSelections = val
       },
-      // 新增 / 修改
-      addOrUpdateHandle (id) {
+     // 审核
+      auditHandle (id, status) {
         this.addOrUpdateVisible = true
-        this.$nextTick(() => {
-          this.$refs.addOrUpdate.init(id)
+        const formData = new FormData()
+        formData.append('id', id)
+        formData.append('status', status)
+        this.$confirm(`确认进行审核?`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+          this.$http({
+            url: this.$http.adornUrl('/api/activityapply/audit'),
+            method: 'post',
+            data: formData
+          }).then(({data}) => {
+            if (data && data.code === 0) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+                duration: 1500,
+                onClose: () => {
+                  this.getDataList()
+                }
+              })
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
         })
       },
       // 删除

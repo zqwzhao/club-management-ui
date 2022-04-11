@@ -33,20 +33,15 @@
       v-model="dataForm.activityDescribe">
       </el-input>
     </el-form-item>
+    <el-form-item label="活动图片" prop="activityImage">
+      <el-input placeholder="请输入活动图片URL地址" v-model="dataForm.activityImage">
+      </el-input>
+    </el-form-item>
     <el-form-item label="活动奖励" prop="activityReward">
       <el-input type="textarea" :rows="2" v-model="dataForm.activityReward" placeholder="活动奖励"></el-input>
     </el-form-item>
     <el-form-item label="活动人数" prop="activityPeople">
       <el-input v-model="dataForm.activityPeople" placeholder="活动人数"></el-input>
-    </el-form-item>
-    <el-form-item label="社团编号" prop="clubId">
-      <el-input v-model="dataForm.clubId" placeholder="社团编号"></el-input>
-    </el-form-item>
-    <el-form-item label="活动状态" prop="activityStatus">
-      <el-input v-model="dataForm.activityStatus" placeholder="活动状态"></el-input>
-    </el-form-item>
-    <el-form-item label="活动创建者" prop="activityCreateClubId">
-      <el-input v-model="dataForm.activityCreaterId" placeholder="活动创建者编号"></el-input>
     </el-form-item>
     <el-form-item label="活动地点" prop="activityPosition">
       <el-input v-model="dataForm.activityPosition" placeholder="活动地点"></el-input>
@@ -70,10 +65,11 @@
           activityStartTime: '',
           activityEndTime: '',
           activityDescribe: '',
+          activityImage: '',
           activityReward: '',
           activityPeople: '',
           activityStatus: '',
-          activityCreateClubId: '',
+          activityCreaterId: '',
           activityPosition: ''
         },
         dataRule: {
@@ -88,6 +84,9 @@
           ],
           activityDescribe: [
             { required: true, message: '活动描述不能为空', trigger: 'blur' }
+          ],          
+          activityImage: [
+            { required: true, message: '活动图片不能为空', trigger: 'blur' }
           ],
           activityReward: [
             { required: true, message: '活动奖励不能为空', trigger: 'blur' }
@@ -98,8 +97,8 @@
           activityStatus: [
             { required: true, message: '活动状态不能为空', trigger: 'blur' }
           ],
-          activityCreateClubId: [
-            { required: true, message: '活动创建者社团不能为空', trigger: 'blur' }
+          activityCreaterId: [
+            { required: true, message: '活动创建者不能为空', trigger: 'blur' }
           ],
           activityPosition: [
             { required: true, message: '活动地点不能为空', trigger: 'blur' }
@@ -124,10 +123,11 @@
                 this.dataForm.activityStartTime = data.activity.activityStartTime
                 this.dataForm.activityEndTime = data.activity.activityEndTime
                 this.dataForm.activityDescribe = data.activity.activityDescribe
+                this.dataForm.activityImage = data.activity.activityImage
                 this.dataForm.activityReward = data.activity.activityReward
                 this.dataForm.activityPeople = data.activity.activityPeople
                 this.dataForm.activityStatus = data.activity.activityStatus
-                this.dataForm.activityCreateClubId = data.activity.activityCreateClubId
+                this.dataForm.activityCreaterId = data.activity.activityCreaterId
                 this.dataForm.activityCover = data.activity.activityCover
                 this.dataForm.activityPosition = data.activity.activityPosition
               }
@@ -148,10 +148,11 @@
                 'activityStartTime': this.dataForm.activityStartTime,
                 'activityEndTime': this.dataForm.activityEndTime,
                 'activityDescribe': this.dataForm.activityDescribe,
+                'activityImage': this.dataForm.activityImage, 
                 'activityReward': this.dataForm.activityReward,
                 'activityPeople': this.dataForm.activityPeople,
                 'activityStatus': this.dataForm.activityStatus,
-                'activityCreateClubId': this.dataForm.activityCreateClubId,
+                'activityCreaterId': this.dataForm.activityCreaterId,
                 'activityCover': this.dataForm.activityCover,
                 'activityPosition': this.dataForm.activityPosition
               })

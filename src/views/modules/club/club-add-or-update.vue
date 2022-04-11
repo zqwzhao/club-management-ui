@@ -20,7 +20,7 @@
       <el-input v-model="dataForm.clubPeople" placeholder="社团描述"></el-input>
     </el-form-item>
     <el-form-item label="社团机构" prop="clubInstitute">
-      <el-select v-model="value" placeholder="请选择">
+      <el-select v-model="value" placeholder="请选择社团机构">
         <el-option
           v-for="item in options"
           :key="item.value"

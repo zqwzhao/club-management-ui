@@ -2,11 +2,10 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
+        <el-input v-model="dataForm.key" placeholder="请输入学号" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('api:activity-apply:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <el-button  @click="getDataList()">查询</el-button>
         <el-button v-if="isAuth('api:activity-apply:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
@@ -29,22 +28,15 @@
         label="活动申请编号">
       </el-table-column>
       <el-table-column
-        prop="accountId"
-        header-align="center"
-        align="center"
-        label="账户编号">
-      </el-table-column>
-      <el-table-column
-        prop="activityId"
-        header-align="center"
-        align="center"
-        label="活动编号">
-      </el-table-column>
-      <el-table-column
         prop="status"
         header-align="center"
         align="center"
         label="状态">
+        <template slot-scope="scope">
+          <span v-if="scope.row.status == 0"><el-tag type="info">待审核</el-tag></span> 
+          <span v-else-if="scope.row.status == 1"><el-tag type="success">已同意</el-tag></span>
+          <span v-else-if="scope.row.status == 2"><el-tag type="danger">未同意</el-tag></span>
+        </template>
       </el-table-column>
       <el-table-column
         prop="studentNumber"
@@ -74,11 +66,11 @@
         fixed="right"
         header-align="center"
         align="center"
-        width="150"
+        width="180"
         label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">通过</el-button>
-          <el-button type="text" size="small" @click="refuse(scope.row.id)">不通过</el-button>
+          <el-button v-if="isAuth('api:activity-apply:audit') && scope.row.status==0" type="success" size="small" @click="auditHandle(scope.row.id, 1)">同意</el-button>
+          <el-button v-if="isAuth('api:activity-apply:audit') && scope.row.status==0" type="info" size="small" @click="auditHandle(scope.row.id, 2)">不同意</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -158,10 +150,34 @@
         this.dataListSelections = val
       },
       // 新增 / 修改
-      addOrUpdateHandle (id) {
+      auditHandle (id, status) {
         this.addOrUpdateVisible = true
-        this.$nextTick(() => {
-          this.$refs.addOrUpdate.init(id)
+        const formData = new FormData()
+        formData.append('id', id)
+        formData.append('status', status)
+        this.$confirm(`确认操作?`, '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'info'
+        }).then(() => {
+          this.$http({
+            url: this.$http.adornUrl('/api/activityapply/audit'),
+            method: 'post',
+            data: formData
+          }).then(({data}) => {
+            if (data && data.code === 0) {
+              this.$message({
+                message: '操作成功',
+                type: 'success',
+                duration: 1500,
+                onClose: () => {
+                  this.getDataList()
+                }
+              })
+            } else {
+              this.$message.error(data.msg)
+            }
+          })
         })
       },
       // 删除

@@ -10,8 +10,8 @@
     <el-form-item label="社团编号" prop="clubId">
       <el-input v-model="dataForm.clubId" placeholder="社团编号"></el-input>
     </el-form-item>
-    <el-form-item label="0 审批中 1 通过 2 不通过" prop="status">
-      <el-input v-model="dataForm.status" placeholder="0 审批中 1 通过 2 不通过"></el-input>
+    <el-form-item label="状态" prop="status">
+      <el-input v-model="dataForm.status" placeholder="状态"></el-input>
     </el-form-item>
     <el-form-item label="学号" prop="studentNumber">
       <el-input v-model="dataForm.studentNumber" placeholder="学号"></el-input>
