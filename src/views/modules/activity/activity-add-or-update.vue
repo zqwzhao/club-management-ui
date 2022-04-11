@@ -84,7 +84,7 @@
           ],
           activityDescribe: [
             { required: true, message: '活动描述不能为空', trigger: 'blur' }
-          ],          
+          ],
           activityImage: [
             { required: true, message: '活动图片不能为空', trigger: 'blur' }
           ],
@@ -148,7 +148,7 @@
                 'activityStartTime': this.dataForm.activityStartTime,
                 'activityEndTime': this.dataForm.activityEndTime,
                 'activityDescribe': this.dataForm.activityDescribe,
-                'activityImage': this.dataForm.activityImage, 
+                'activityImage': this.dataForm.activityImage,
                 'activityReward': this.dataForm.activityReward,
                 'activityPeople': this.dataForm.activityPeople,
                 'activityStatus': this.dataForm.activityStatus,
