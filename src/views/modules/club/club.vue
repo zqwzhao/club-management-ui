@@ -2,10 +2,7 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="请输入社团名称" clearable></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="请输入社团类型" clearable></el-input>
+        <el-input v-model="dataForm.clubname" placeholder="请输入社团名称" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
@@ -139,7 +136,7 @@
           params: this.$http.adornParams({
             'page': this.pageIndex,
             'limit': this.pageSize,
-            'key': this.dataForm.key
+            'clubname': this.dataForm.clubname
           })
         }).then(({data}) => {
           if (data && data.code === 0) {

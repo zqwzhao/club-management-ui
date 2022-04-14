@@ -2,23 +2,11 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="请输入学号" clearable></el-input>
+        <el-input v-model="dataForm.key1" placeholder="请输入学号" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="请输入姓名" clearable></el-input>
+        <el-input v-model="dataForm.key2" placeholder="请输入姓名" clearable></el-input>
       </el-form-item>
-
-    <el-form-item>
-      <el-select v-model="value" placeholder="请选择系别">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-          :disabled="item.disabled">
-        </el-option>
-      </el-select>
-    </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
         <el-button v-if="isAuth('app:account:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
@@ -49,12 +37,6 @@
         header-align="center"
         align="center"
         label="学号">
-      </el-table-column>
-      <el-table-column
-        prop="password"
-        header-align="center"
-        align="center"
-        label="密码">
       </el-table-column>
       <el-table-column
         prop="nickname"
@@ -99,18 +81,6 @@
         label="专业">
       </el-table-column>
       <el-table-column
-        prop="open id"
-        header-align="center"
-        align="center"
-        label="微信openid">
-      </el-table-column>
-      <el-table-column
-        prop="avatar"
-        header-align="center"
-        align="center"
-        label="微信验证消息">
-      </el-table-column>
-      <el-table-column
         prop="picture"
         header-align="center"
         align="center"
@@ -123,8 +93,8 @@
         width="150"
         label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.accountId)">修改</el-button>
-          <el-button type="text" size="small" @click="deleteHandle(scope.row.accountId)">删除</el-button>
+          <el-button type="success" size="small"  @click="addOrUpdateHandle(scope.row.accountId)">修改</el-button>
+          <el-button type="info" size="small" @click="deleteHandle(scope.row.accountId)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -175,7 +145,8 @@
           params: this.$http.adornParams({
             'page': this.pageIndex,
             'limit': this.pageSize,
-            'key': this.dataForm.key
+            'studentNumber': this.dataForm.studentnumber,
+            'studentName': this.dataForm.studentname
           })
         }).then(({data}) => {
           if (data && data.code === 0) {

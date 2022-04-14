@@ -116,8 +116,6 @@
                 this.dataForm.gender = data.account.gender
                 this.dataForm.institute = data.account.institute
                 this.dataForm.major = data.account.major
-                this.dataForm.openId = data.account.openId
-                this.dataForm.avatar = data.account.avatar
                 this.dataForm.picture = data.account.picture
               }
             })
@@ -142,8 +140,6 @@
                 'gender': this.dataForm.gender,
                 'institute': this.dataForm.institute,
                 'major': this.dataForm.major,
-                'openId': this.dataForm.openId,
-                'avatar': this.dataForm.avatar,
                 'picture': this.dataForm.picture
               })
             }).then(({data}) => {

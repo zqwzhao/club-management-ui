@@ -17,7 +17,7 @@
       <el-input v-model="dataForm.clubLogo" placeholder="社团描述"></el-input>
     </el-form-item>
     <el-form-item label="社团人数" prop="clubPeople">
-      <el-input v-model="dataForm.clubPeople" placeholder="社团描述"></el-input>
+      <el-input v-model="dataForm.clubPeople" placeholder="社团人数"></el-input>
     </el-form-item>
     <el-form-item label="社团机构" prop="clubInstitute">
       <el-select v-model="value" placeholder="请选择社团机构">
@@ -89,8 +89,7 @@
           ]
         },
         imageUrl: '',
-        tempUrl: '',
-        options: []
+        tempUrl: ''
       }
     },
     methods: {
@@ -101,7 +100,7 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.clubId) {
             this.$http({
-              url: this.$http.adornUrl(`/generator/club/info/${this.dataForm.clubId}`),
+              url: this.$http.adornUrl(`/api/club/info/${this.dataForm.clubId}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {
@@ -132,6 +131,7 @@
                 'clubType': this.dataForm.clubType,
                 'clubDescribe': this.dataForm.clubDescribe,
                 'clubLogo': this.dataForm.clubLogo,
+                'clubPeople': this.dataForm.clubPeople,
                 'clubInstitute': this.dataForm.clubInstitute,
                 'clubCreaterId': this.dataForm.clubCreaterId,
                 'clubQq': this.dataForm.clubQq
