@@ -2,10 +2,10 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.key1" placeholder="请输入学号" clearable></el-input>
+        <el-input v-model="dataForm.studentnumber" placeholder="请输入学号" clearable></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input v-model="dataForm.key2" placeholder="请输入姓名" clearable></el-input>
+        <el-input v-model="dataForm.studentname" placeholder="请输入姓名" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
@@ -145,8 +145,8 @@
           params: this.$http.adornParams({
             'page': this.pageIndex,
             'limit': this.pageSize,
-            'studentNumber': this.dataForm.studentnumber,
-            'studentName': this.dataForm.studentname
+            'studentnumber': this.dataForm.studentnumber,
+            'studentname': this.dataForm.studentname
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
