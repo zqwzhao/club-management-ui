@@ -60,12 +60,6 @@
         label="社团机构">
       </el-table-column>
       <el-table-column
-        prop="clubCreaterId"
-        header-align="center"
-        align="center"
-        label="社团创建者id">
-      </el-table-column>
-      <el-table-column
         prop="clubQq"
         header-align="center"
         align="center"

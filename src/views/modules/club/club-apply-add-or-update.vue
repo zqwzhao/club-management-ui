@@ -74,7 +74,7 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/apiclubapply/info/${this.dataForm.id}`),
+              url: this.$http.adornUrl(`/api/clubapply/info/${this.dataForm.id}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {

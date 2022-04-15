@@ -14,7 +14,7 @@
       <el-input v-model="dataForm.clubDescribe" placeholder="社团描述"></el-input>
     </el-form-item>
     <el-form-item label="社团Logo" prop="clubLogo">
-      <el-input v-model="dataForm.clubLogo" placeholder="社团描述"></el-input>
+      <el-input v-model="dataForm.clubLogo" placeholder="社团Logo"></el-input>
     </el-form-item>
     <el-form-item label="社团人数" prop="clubPeople">
       <el-input v-model="dataForm.clubPeople" placeholder="社团人数"></el-input>
@@ -28,9 +28,6 @@
           :value="item.value">
         </el-option>
       </el-select>
-    </el-form-item>
-    <el-form-item label="社团创建者" prop="clubCreaterId">
-      <el-input v-model="dataForm.clubCreaterId" placeholder="社团创建者"></el-input>
     </el-form-item>
     <el-form-item label="社团QQ群号" prop="clubQq">
       <el-input v-model="dataForm.clubQq" placeholder="社团QQ群号"></el-input>
@@ -89,7 +86,8 @@
           ]
         },
         imageUrl: '',
-        tempUrl: ''
+        tempUrl: '',
+        options: [{ '软件工程系': '软件工程系' }, { '教育系': '教育系' }]
       }
     },
     methods: {

@@ -6,7 +6,6 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('api:club-apply:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
         <el-button v-if="isAuth('api:club-apply:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
@@ -64,9 +63,9 @@
         width="180"
         label="操作">
         <template slot-scope="scope">
-          <el-button type="success" size="small" @click="auditHandle(scope.row.id, 1)">同意</el-button>
+          <el-button v-if="isAuth('api:club-apply:audit')&& scope.row.status==0" type="success" size="small" @click="auditHandle(scope.row.id, 1)">同意</el-button>
           <!-- <el-button type="text" size="small" @click="refuseApply(scope.row.id)">拒绝</el-button> -->
-          <el-button type="info" size="small" @click="auditHandle(scope.row.id, 2)">不同意</el-button>
+          <el-button v-if="isAuth('api:club-apply:audit')&& scope.row.status==0" type="info" size="small" @click="auditHandle(scope.row.id, 2)">不同意</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -157,7 +156,7 @@
           type: 'info'
         }).then(() => {
           this.$http({
-            url: this.$http.adornUrl('/api/activityapply/audit'),
+            url: this.$http.adornUrl('/api/clubapply/audit'),
             method: 'post',
             data: formData
           }).then(({data}) => {

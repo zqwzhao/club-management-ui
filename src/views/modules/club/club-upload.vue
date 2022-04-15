@@ -14,6 +14,7 @@
       style="text-align: center;">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+      <div><em>目前只支持Excel文件。文件大小不超过10M</em></div>
     </el-upload>
   </el-dialog>
 </template>
@@ -31,31 +32,35 @@
     },
     methods: {
       init (id) {
-        this.url = this.$http.adornUrl(`/club/club/upload?token=${this.$cookie.get('token')}`)
+        this.url = this.$http.adornUrl(`/api/club/upload/clubs?token=${this.$cookie.get('token')}`)
         this.visible = true
       },
       // 上传之前
       beforeUploadHandle (file) {
-        if (file.type !== 'docx' && file.type !== 'xml' && file.type !== 'json') {
-          this.$message.error('只支持docx,json格式的文件！')
-          return false
+        let extension = file.name.substring(file.name.lastIndexOf('.') + 1)
+        let size = file.size / 1024 / 1024
+        if (extension !== 'xlsx') {
+          this.$notify.warning({
+            title: '警告',
+            message: `只能上传Excel2017（即后缀是.xlsx）的文件`
+          })
+        }
+        if (size > 10) {
+          this.$notify.warning({
+            title: '警告',
+            message: `文件大小不得超过10M`
+          })
         }
         this.num++
       },
       // 上传成功
       successHandle (response, file, fileList) {
         this.fileList = fileList
-        this.successNum++
         if (response && response.code === 0) {
-          if (this.num === this.successNum) {
-            this.$confirm('操作成功, 是否继续操作?', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
-              type: 'warning'
-            }).catch(() => {
-              this.visible = false
-            })
-          }
+          this.$notify.success({
+            title: '成功',
+            message: `文件上传成功`
+          })
         } else {
           this.$message.error(response.msg)
         }
