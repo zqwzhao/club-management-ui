@@ -2,7 +2,7 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
+        <el-input v-model="dataForm.studentname" placeholder="请输入姓名" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
@@ -33,7 +33,7 @@
         align="center"
         label="状态">
         <template slot-scope="scope">
-          <span v-if="scope.row.status == 0"><el-tag type="info">待审核</el-tag></span> 
+          <span v-if="scope.row.status == 0"><el-tag type="info">待审批</el-tag></span> 
           <span v-else-if="scope.row.status == 1"><el-tag type="success">已同意</el-tag></span>
           <span v-else-if="scope.row.status == 2"><el-tag type="danger">未同意</el-tag></span>
         </template>
@@ -116,7 +116,7 @@
           params: this.$http.adornParams({
             'page': this.pageIndex,
             'limit': this.pageSize,
-            'key': this.dataForm.key
+            'studentname': this.dataForm.studentname
           })
         }).then(({data}) => {
           if (data && data.code === 0) {

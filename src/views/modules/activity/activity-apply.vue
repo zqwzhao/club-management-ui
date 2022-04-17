@@ -33,7 +33,7 @@
         align="center"
         label="状态">
         <template slot-scope="scope">
-          <span v-if="scope.row.status == 0"><el-tag type="info">待审核</el-tag></span> 
+          <span v-if="scope.row.status == 0"><el-tag type="info">待审批</el-tag></span> 
           <span v-else-if="scope.row.status == 1"><el-tag type="success">已同意</el-tag></span>
           <span v-else-if="scope.row.status == 2"><el-tag type="danger">未同意</el-tag></span>
         </template>

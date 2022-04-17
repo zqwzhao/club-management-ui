@@ -7,9 +7,9 @@
     <el-form-item label="学号" prop="studentNumber">
       <el-input v-model="dataForm.studentNumber" placeholder="学号"></el-input>
     </el-form-item>
-    <el-form-item label="密码" prop="password">
+    <!-- <el-form-item label="密码" prop="password">
       <el-input v-model="dataForm.password" placeholder="密码"></el-input>
-    </el-form-item>
+    </el-form-item> -->
     <el-form-item label="昵称" prop="nickname">
       <el-input v-model="dataForm.nickname" placeholder="昵称"></el-input>
     </el-form-item>

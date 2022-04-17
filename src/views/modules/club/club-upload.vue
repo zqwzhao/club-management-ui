@@ -14,7 +14,7 @@
       style="text-align: center;">
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-      <div><em>目前只支持Excel文件。文件大小不超过10M</em></div>
+     <div class="el-upload__tip" slot="tip">只支持Excel文件（.xlsx格式）！文件大小不能大于10MB</div>
     </el-upload>
   </el-dialog>
 </template>

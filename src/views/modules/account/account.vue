@@ -10,7 +10,7 @@
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
         <el-button v-if="isAuth('app:account:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
-        <el-button v-if="isAuth('app:account:batchAdd')" type="primary" >批量新增</el-button>
+        <!-- <el-button v-if="isAuth('app:account:batchAdd')" type="primary" >批量新增</el-button> -->
         <el-button v-if="isAuth('app:account:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
