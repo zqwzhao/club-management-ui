@@ -47,7 +47,7 @@
         align="center"
         label="社团描述">
       </el-table-column>
-      <el-table-column prop="clubLogo" label="社团logo" min-width="45%" >
+      <el-table-column prop="clubLogo" label="社团logo" min-width="60%" >
                  <!-- 图片的显示 -->
                  <template   slot-scope="scope">            
                     <img :src="scope.row.clubLogo"  min-width="100" height="100" />

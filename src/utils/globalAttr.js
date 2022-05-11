@@ -185,12 +185,6 @@ export const operateType = {
   DEFECT: 'DEFECT' // 缺陷
 }
 
-export const workOrderManageRoles = {
-  CustomerService: 1591730, // 信通客服
-  OperationAdministrator: 1591729, // 运维管理员
-  CommunicationsOperations: 1591732, // 通信运维
-  TerminalOperations: 1591731 // 终端运维
-}
 // 一体化展示
 export const timeChangeList = [
   {

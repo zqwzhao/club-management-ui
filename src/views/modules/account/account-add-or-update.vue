@@ -23,6 +23,14 @@
       <el-input v-model="dataForm.studentName" placeholder="学生姓名"></el-input>
     </el-form-item>
     <el-form-item label="性别" prop="gender">
+      <el-select v-model="dataForm.clubInstitute" placeholder="请选择性别">
+        <el-option
+          v-for="item in clubInstituteOptionns"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
       <el-input v-model="dataForm.gender" placeholder="性别"></el-input>
     </el-form-item>
     <el-form-item label="系别" prop="institute">

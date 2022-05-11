@@ -8,7 +8,14 @@
       <el-input v-model="dataForm.clubName" placeholder="社团名称"></el-input>
     </el-form-item>
     <el-form-item label="社团类型" prop="clubType">
-      <el-input v-model="dataForm.clubType" placeholder="社团类型"></el-input>
+       <el-select v-model="dataForm.clubType" placeholder="请选择社团类型">
+        <el-option
+          v-for="item in clubTypeOptions"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
     </el-form-item>
     <el-form-item label="社团描述" prop="clubDescribe">
       <el-input v-model="dataForm.clubDescribe" placeholder="社团描述"></el-input>
@@ -17,12 +24,12 @@
       <el-input v-model="dataForm.clubLogo" placeholder="社团Logo"></el-input>
     </el-form-item>
     <el-form-item label="社团人数" prop="clubPeople">
-      <el-input v-model="dataForm.clubPeople" placeholder="社团人数"></el-input>
+      <el-input-number v-model="dataForm.clubPeople" placeholder="" :step="1" min="0" max="1000"></el-input-number>
     </el-form-item>
     <el-form-item label="社团机构" prop="clubInstitute">
-      <el-select v-model="value" placeholder="请选择社团机构">
+      <el-select v-model="dataForm.clubInstitute" placeholder="请选择社团机构">
         <el-option
-          v-for="item in options"
+          v-for="item in clubInstituteOptionns"
           :key="item.value"
           :label="item.label"
           :value="item.value">
@@ -47,7 +54,7 @@
       return {
         visible: false,
         specialCharacterReg,
-        nameSpecialCharacterReg: new RegExp(/^[^`\t+\n+\s+~!#$%^&*()+=<>?:"{}|,./;'\\[\]·~！#￥%……&*（）——+={}|《》？：“”【】、；‘'，。、]*$/ig),
+        nameSpecialCharacterReg: /^[^`\t+\n+\s+~!#$%^&*()+=<>?:"{}|,./;'\\[\]·~！#￥%……&*（）——+={}|《》？：“”【】、；‘'，。、]*$/,
         dataForm: {
           clubId: 0,
           clubName: '',
@@ -61,8 +68,8 @@
         },
         dataRule: {
           clubName: [
-            { required: true, message: '社团名称不能为空', trigger: 'blur' }
-            // { pattern: this.nameSpecialCharacterReg, message: "请输入正确的手机号码", trigger: ["blur", "change"] }
+            { required: true, message: '社团名称不能为空', trigger: 'blur' },
+            { pattern: this.nameSpecialCharacterReg, message: "请输入正确的社团名称", trigger: ["blur", "change"] }
           ],
           clubType: [
             { required: true, message: '社团类型不能为空', trigger: 'blur' }
@@ -86,9 +93,42 @@
             { required: true, message: '社团qq群号不能为空', trigger: 'blur' }
           ]
         },
+        clubTypeOptions: [{
+          value: '校园管理类',
+          label: '校园管理类'
+        }, {
+          value: '文化体育类',
+          label: '文化体育类'
+        }, {
+          value: '创新创业类',
+          label: '创新创业类'
+        }, {
+          value: '学术科技类',
+          label: '学术科技类'
+        }, {
+          value: '兴趣爱好类',
+          label: '兴趣爱好类'
+        }],
+        clubInstituteOptionns: [{
+          value: '软件工程系',
+          label: '软件工程系'
+        }, {
+          value: '教育系',
+          label: '教育系'
+        }, {
+          value: '武装部',
+          label: '武装部'
+        }, {
+          value: '经贸系',
+          label: '经贸系'
+        }, {
+          value: '学生会',
+          label: '学生会'
+        }],
+        clubTypeValue: '',
+        clubInstituteValue: '',
         imageUrl: '',
-        tempUrl: '',
-        options: [{ '软件工程系': '软件工程系' }, { '教育系': '教育系' }]
+        tempUrl: ''
       }
     },
     methods: {

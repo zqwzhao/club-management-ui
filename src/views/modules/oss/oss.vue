@@ -32,6 +32,12 @@
         align="center"
         label="URL地址">
       </el-table-column>
+       <el-table-column prop="url" label="图片预览" min-width="70%" >
+                 <!-- 图片的显示 -->
+                 <template   slot-scope="scope">            
+                    <img :src="scope.row.url"  min-width="120" height="100" />
+                 </template>         
+      </el-table-column> 
       <el-table-column
         prop="createDate"
         header-align="center"

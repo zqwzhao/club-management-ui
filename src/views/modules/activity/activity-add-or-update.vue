@@ -7,23 +7,23 @@
     <el-form-item label="活动名称" prop="activityName">
       <el-input v-model="dataForm.activityName" placeholder="活动名称"></el-input>
     </el-form-item>
-
-    
     <el-form-item label="活动开始时间" prop="activityStartTime">
       <el-date-picker
-      v-model="dataForm.activityStartTime"
-      type="datetime"
-      placeholder="活动开始日期时间"
-      value-format="yyyy-MM-dd hh:mm:ss">
-    </el-date-picker>
+        v-model="dataForm.activityStartTime"
+        type="datetime"
+        placeholder="选择开始时间"
+        value-format="yyyy-MM-dd hh:mm:ss"
+        :picker-options="pickerOptions0"
+      ></el-date-picker>
     </el-form-item>
     <el-form-item label="活动结束时间" prop="activityEndTime">
-      <el-date-picker
-      v-model="dataForm.activityEndTime"
-      type="datetime"
-      placeholder="活动结束时间"
-      value-format="yyyy-MM-dd hh:mm:ss">
-    </el-date-picker>
+       <el-date-picker
+          v-model="dataForm.activityEndTime"
+          type="datetime"
+          placeholder="选择结束日期"
+          value-format="yyyy-MM-dd hh:mm:ss"
+          :picker-options="pickerOptions1"
+      ></el-date-picker>
     </el-form-item>
     <el-form-item label="活动描述" prop="activityDescribe">
       <el-input
@@ -41,7 +41,7 @@
       <el-input type="textarea" :rows="2" v-model="dataForm.activityReward" placeholder="活动奖励"></el-input>
     </el-form-item>
     <el-form-item label="活动人数" prop="activityPeople">
-      <el-input v-model="dataForm.activityPeople" placeholder="活动人数"></el-input>
+      <el-input-number v-model="dataForm.activityPeople" placeholder="活动人数" step="1" min="0" max="1000"></el-input-number>
     </el-form-item>
     <el-form-item label="活动地点" prop="activityPosition">
       <el-input v-model="dataForm.activityPosition" placeholder="活动地点"></el-input>
@@ -77,10 +77,10 @@
             { required: true, message: '活动名称不能为空', trigger: 'blur' }
           ],
           activityStartTime: [
-            { required: true, message: '活动开始时间不能为空', trigger: 'blur' }
+            { required: true, message: '请选择开始时间', trigger: ['blur', 'change'] }
           ],
           activityEndTime: [
-            { required: true, message: '活动结束时间不能为空', trigger: 'blur' }
+            { required: true, message: '请选择结束时间', trigger: ['blur', 'change'] }
           ],
           activityDescribe: [
             { required: true, message: '活动描述不能为空', trigger: 'blur' }
@@ -89,7 +89,7 @@
             { required: true, message: '活动图片不能为空', trigger: 'blur' }
           ],
           activityReward: [
-            { required: true, message: '活动奖励不能为空', trigger: 'blur' }
+            { required: false, message: '活动奖励不能为空', trigger: 'blur' }
           ],
           activityPeople: [
             { required: true, message: '活动人数不能为空', trigger: 'blur' }
@@ -103,6 +103,28 @@
           activityPosition: [
             { required: true, message: '活动地点不能为空', trigger: 'blur' }
           ]
+        }
+      }
+    },
+    omputed: {
+      editStartOptions: {
+        disabledDate: time => {
+          if (!this.insertForm.endTime) {
+            // 禁止选择1970年以前的日期
+            return time.getTime() < new Date(1970 - 1 - 1).getTime()
+          } else {
+            // 开始时间要大于结束时间
+            return time.getTime() > new Date(this.dataForm.activityEndTime)
+          }
+        }
+      },
+      editStopOptions: {
+        disabledDate: time => {
+          return (
+            // 禁止选择1970年以前的日期
+            time.getTime() < new Date(this.dataForm.activityStartTime) ||
+            time.getTime() < new Date(1970 - 1 - 1).getTime()
+          )
         }
       }
     },

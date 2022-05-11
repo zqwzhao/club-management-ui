@@ -52,10 +52,10 @@
         align="center"
         label="活动描述">
       </el-table-column>
-      <el-table-column prop="activityImage" label="活动图片" min-width="45%" >
+      <el-table-column prop="activityImage" label="活动图片" min-width="90%" >
                  <!-- 图片的显示 -->
                  <template   slot-scope="scope">            
-                    <img :src="scope.row.activityImage"  min-width="100" height="100" />
+                    <img :src="scope.row.activityImage"  min-width="120" height="100" />
                  </template>         
       </el-table-column> 
       <el-table-column
