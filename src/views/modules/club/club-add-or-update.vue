@@ -54,7 +54,6 @@
       return {
         visible: false,
         specialCharacterReg,
-        nameSpecialCharacterReg: /^[^`\t+\n+\s+~!#$%^&*()+=<>?:"{}|,./;'\\[\]·~！#￥%……&*（）——+={}|《》？：“”【】、；‘'，。、]*$/,
         dataForm: {
           clubId: 0,
           clubName: '',
@@ -69,10 +68,10 @@
         dataRule: {
           clubName: [
             { required: true, message: '社团名称不能为空', trigger: 'blur' },
-            { pattern: this.nameSpecialCharacterReg, message: "请输入正确的社团名称", trigger: ["blur", "change"] }
+            { message: '请勿输入特殊字符', trigger: ['blur', 'change'], pattern: /^[^`\t+\n+\s+~!#$%^&*()+=<>?:"{}|,./;'\\[\]·~！#￥%……&*（）——+={}|《》？：“”【】、；‘'，。、]*$/ }
           ],
           clubType: [
-            { required: true, message: '社团类型不能为空', trigger: 'blur' }
+            { required: true, message: '请选择社团类型', trigger: 'blur' }
           ],
           clubDescribe: [
             { required: true, message: '社团描述不能为空', trigger: 'blur' }
@@ -90,7 +89,8 @@
             { required: true, message: '社团创建者id不能为空', trigger: 'blur' }
           ],
           clubQq: [
-            { required: true, message: '社团qq群号不能为空', trigger: 'blur' }
+            { required: true, message: '社团qq群号不能为空', trigger: 'blur' },
+            { message: '请勿输入特殊字符', trigger: ['blur', 'change'], pattern: /^[^`\t+\n+\s+~!#$%^&*()+=<>?:"{}|,./;'\\[\]·~！#￥%……&*（）——+={}|《》？：“”【】、；‘'，。、]*$/ }
           ]
         },
         clubTypeOptions: [{

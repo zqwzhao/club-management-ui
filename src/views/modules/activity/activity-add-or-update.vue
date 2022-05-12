@@ -5,7 +5,8 @@
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="130px">
     <el-form-item label="活动名称" prop="activityName">
-      <el-input v-model="dataForm.activityName" placeholder="活动名称"></el-input>
+      <el-input v-model.trim="dataForm.activityName" placeholder="活动名称" clearable
+      @keyup.native="trimName('dataForm', 'activityName')" maxlength="30"></el-input>
     </el-form-item>
     <el-form-item label="活动开始时间" prop="activityStartTime">
       <el-date-picker
@@ -28,23 +29,23 @@
     <el-form-item label="活动描述" prop="activityDescribe">
       <el-input
       type="textarea"
-      :rows="3"
+      :rows="4"
       placeholder="请输入活动描述"
-      v-model="dataForm.activityDescribe">
+      v-model="dataForm.activityDescribe" maxlength="255">
       </el-input>
     </el-form-item>
-    <el-form-item label="活动图片" prop="activityImage">
-      <el-input placeholder="请输入活动图片URL地址" v-model="dataForm.activityImage">
+    <el-form-item label="活动图片URL地址" prop="activityImage">
+      <el-input placeholder="请输入活动图片URL地址" v-model="dataForm.activityImage" maxlength="255">
       </el-input>
     </el-form-item>
     <el-form-item label="活动奖励" prop="activityReward">
-      <el-input type="textarea" :rows="2" v-model="dataForm.activityReward" placeholder="活动奖励"></el-input>
+      <el-input type="textarea" :rows="3" v-model="dataForm.activityReward" placeholder="活动奖励" maxlength="255"></el-input>
     </el-form-item>
     <el-form-item label="活动人数" prop="activityPeople">
       <el-input-number v-model="dataForm.activityPeople" placeholder="活动人数" step="1" min="0" max="1000"></el-input-number>
     </el-form-item>
     <el-form-item label="活动地点" prop="activityPosition">
-      <el-input v-model="dataForm.activityPosition" placeholder="活动地点"></el-input>
+      <el-input v-model.trim="dataForm.activityPosition" placeholder="活动地点" maxlength="60"></el-input>
     </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -74,7 +75,8 @@
         },
         dataRule: {
           activityName: [
-            { required: true, message: '活动名称不能为空', trigger: 'blur' }
+            { required: true, message: '活动名称不能为空', trigger: 'blur' },
+            { message: '请勿输入特殊字符', trigger: ['blur', 'change'], pattern: /^[^`\t+\n+\s+~!#$%^&*()+=<>?:"{}|,./;'\\[\]·~！#￥%……&*（）——+={}|《》？：“”【】、；‘'，。、]*$/ }
           ],
           activityStartTime: [
             { required: true, message: '请选择开始时间', trigger: ['blur', 'change'] }
@@ -86,7 +88,8 @@
             { required: true, message: '活动描述不能为空', trigger: 'blur' }
           ],
           activityImage: [
-            { required: true, message: '活动图片不能为空', trigger: 'blur' }
+            { required: true, message: '活动图片URL不能为空', trigger: 'blur' },
+            { message: '请输入以http或https开头的正确URL地址', trigger: ['blur', 'change'], pattern: /^(http(s)?:\/\/)[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+(:([1-9]|[1-9]\d{1,3}|[1-5]\d{4}|6[0-4]\d{3}|65[0-4]\d{2}|655[0-2]\d|6553[0-5]))?(\/([A-Za-z0-9_-]+\/?)*)?(.png|.jpg)$/ }
           ],
           activityReward: [
             { required: false, message: '活动奖励不能为空', trigger: 'blur' }
@@ -97,11 +100,9 @@
           activityStatus: [
             { required: true, message: '活动状态不能为空', trigger: 'blur' }
           ],
-          activityCreaterId: [
-            { required: true, message: '活动创建者不能为空', trigger: 'blur' }
-          ],
           activityPosition: [
-            { required: true, message: '活动地点不能为空', trigger: 'blur' }
+            { required: true, message: '活动地点不能为空', trigger: 'blur' },
+            { message: '请勿输入特殊字符', trigger: ['blur', 'change'], pattern: /^[^`\t+\n+\s+~!#$%^&*()+=<>?:"{}|,./;'\\[\]·~！#￥%……&*（）——+={}|《》？：“”【】、；‘'，。、]*$/ }
           ]
         }
       }
@@ -195,6 +196,10 @@
             })
           }
         })
+      },
+      // 去中间空格
+      trimName (val, value) {
+        this[val][value] = this[val][value].replace(/\s+/g, '')
       }
     }
   }

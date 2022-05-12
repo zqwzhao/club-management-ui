@@ -7,9 +7,6 @@
     <el-form-item label="学号" prop="studentNumber">
       <el-input v-model="dataForm.studentNumber" placeholder="学号"></el-input>
     </el-form-item>
-    <!-- <el-form-item label="密码" prop="password">
-      <el-input v-model="dataForm.password" placeholder="密码"></el-input>
-    </el-form-item> -->
     <el-form-item label="昵称" prop="nickname">
       <el-input v-model="dataForm.nickname" placeholder="昵称"></el-input>
     </el-form-item>
@@ -23,9 +20,9 @@
       <el-input v-model="dataForm.studentName" placeholder="学生姓名"></el-input>
     </el-form-item>
     <el-form-item label="性别" prop="gender">
-      <el-select v-model="dataForm.clubInstitute" placeholder="请选择性别">
+      <el-select v-model="dataForm.gender" placeholder="请选择性别">
         <el-option
-          v-for="item in clubInstituteOptionns"
+          v-for="item in genderOptionns"
           :key="item.value"
           :label="item.label"
           :value="item.value">
@@ -99,7 +96,14 @@
           picture: [
             { required: true, message: '头像不能为空', trigger: 'blur' }
           ]
-        }
+        },
+        genderOptionns: [{
+          value: '男',
+          label: '男'
+        }, {
+          value: '女',
+          label: '女'
+        }]
       }
     },
     methods: {
@@ -116,7 +120,6 @@
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.dataForm.studentNumber = data.account.studentNumber
-                this.dataForm.password = data.account.password
                 this.dataForm.nickname = data.account.nickname
                 this.dataForm.mobile = data.account.mobile
                 this.dataForm.createTime = data.account.createTime
@@ -140,7 +143,6 @@
               data: this.$http.adornData({
                 'accountId': this.dataForm.accountId || undefined,
                 'studentNumber': this.dataForm.studentNumber,
-                'password': this.dataForm.password,
                 'nickname': this.dataForm.nickname,
                 'mobile': this.dataForm.mobile,
                 'createTime': this.dataForm.createTime,
