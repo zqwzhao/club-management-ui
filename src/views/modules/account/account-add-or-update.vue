@@ -28,7 +28,6 @@
           :value="item.value">
         </el-option>
       </el-select>
-      <el-input v-model="dataForm.gender" placeholder="性别"></el-input>
     </el-form-item>
     <el-form-item label="系别" prop="institute">
       <el-input v-model="dataForm.institute" placeholder="系别"></el-input>
